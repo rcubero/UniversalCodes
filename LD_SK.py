@@ -1,18 +1,30 @@
+# ------------------------------------------------------------------- #
+# This Python code samples the large deviation realizations for the   #
+# normalized maximum likelihood (NML) of the Sherrington-Kirkpatrick  #
+# model. This is rather a supplementary code and does not appear in   #
+# the text:                                                           #
+#    Minimum Description Length codes are critical                    #
+#    Cubero, RJ; Marsili, M; Roudi, Y                                 #
+# ------------------------------------------------------------------- #
+
 # Some basic imports
 from __future__ import division
-
 import numpy as np
 
+# Import important libraries
 from collections import Counter
 from multiprocessing import Pool
 
+# Import functions from an external library
 from spin_operators import *
 from boltzmann_learning import *
 from relevance import *
 
+# Define the size $M$ of sample $\hat{s}$ and the size, $N$ of the system
 M = 1000
 N = 3
 
+# define a function which realizes large deviation samples in the coding cost as a function of the parameter beta
 def surf_ld_ising(beta):
     output_name = 'UC_SK_N'+str(N)+'_b'+str(100*beta)+'_'
     ising_operators = np.array([i for i in np.arange(np.power(2,N)) if (binary(i,N).count('1')==1 or binary(i,N).count('1')==2)])
@@ -73,7 +85,7 @@ def surf_ld_ising(beta):
         test_Z = -np.log(partition_function)
         _, test_HS = calculate_HofKS(np.array(list(Counter(test_data_index).values())))
 
-        dg = test_Z + np.dot(test_coup,test_averages) - beta*test_HS - initial_Z - np.dot(initial_coup,initial_averages) + beta*initial_HS
+        dg = test_Z + np.dot(test_coup,test_averages) - beta*M*test_HS - initial_Z - np.dot(initial_coup,initial_averages) + beta*M*initial_HS
 
         if iterations<500: condition = np.exp(dg)
         else: condition = np.exp(M*dg)
