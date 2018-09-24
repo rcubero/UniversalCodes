@@ -9,6 +9,7 @@
 # Some basic imports
 from __future__ import division
 import numpy as np
+import pickle as pkl
 
 # Import necessary libraries
 from collections import Counter
@@ -65,3 +66,7 @@ for n_spins in np.arange(3,21,1):
         HofS_paramagnet[n_spins].append(HofS)
         HofK_paramagnet[n_spins].append(HofK)
         samples[n_spins].append(b2i_states(data.T))
+        
+pkl.dump(HofS_sampling, open('HofS_'+output_name+'.d','wb'))
+pkl.dump(HofK_sampling, open('HofK_'+output_name+'.d','wb'))
+pkl.dump(DM_samples, open('UC_'+output_name+'.d','wb'))
