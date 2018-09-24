@@ -39,6 +39,8 @@ rho = 10
 S_size = 1000
 M = rho*S_size
 
+output_name = 'dirichlet_M1e3_S1000'
+
 # Initialize the vector $k_s$ which the frequency of the state $s$ in the sample $\hat{s}$
 # Here, we initialize by creating (almost) equally sampled states
 k_sample = np.floor(M/S_size)*np.ones(S_size)
@@ -77,3 +79,7 @@ while iterations < 100:
 DM_samples = np.array(DM_samples)
 HofK_sampling = np.array(HofK_sampling)
 HofS_sampling = np.array(HofS_sampling)
+
+np.savetxt('HofS_'+output_name+'.d', HofS_sampling)
+np.savetxt('HofK_'+output_name+'.d', HofK_sampling)
+np.savetxt('UC_'+output_name+'.d', DM_samples)
