@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------- #
-# This Python code samples the sample space $\chi$ of the normalized  #
-# maximum likelihood (NML) for the Dirichlet model which is used to   #
-# plot Figure 2 in the text:                                          #
+# This Python code samples the large deviation realizations of the    #
+# normalized maximum likelihood (NML) for the Dirichlet model which   #
+# is used to plot Figure 5 in the text:                               #
 #    Minimum Description Length codes are critical                    #
 #    Cubero, RJ; Marsili, M; Roudi, Y                                 #
 # ------------------------------------------------------------------- #
