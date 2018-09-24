@@ -34,7 +34,7 @@ def dk_term(k):
     else: return - loggamma(k+1)
 
 # Fix the parameters of the Dirichlet model
-# $\rho = S_size/M$ where $S_size$ is the size of the state space and $M$ is the number of samples
+# $\rho = M/S_size$ where $S_size$ is the size of the state space and $M$ is the number of samples
 rho = 10
 S_size = 1000
 M = rho*S_size
@@ -67,7 +67,7 @@ while iterations < 100:
         accept += 1
     
     # Equilibrate the Markov chain Monte Carlo at 100*S_size before calculating relevant quantities
-    if ((attempt >= 100*S_size) and (np.mod(attempt,10*S_size)==0)):
+    if ((attempt >= 5000*S_size) and (np.mod(attempt,50*S_size)==0)):
         HofK, HofS = calculate_HofKS(k_sample)
         DM_sample[iterations] = k_sample
         HofK_sampling[iterations] = HofK
