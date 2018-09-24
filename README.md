@@ -15,5 +15,4 @@ This repository contains the following files needed to reproduce the results of 
 -**LD_Dirichlet.py** generates large deviation samples from the NML distribution of the Dirichlet model using an MCMC approach. Here, one can play with the parameter beta which explores the large deviation events from the typical H[s] of the Dirichlet NML codes. <br> <br> <br>
 
 -**LD_SK.py** generates large deviation samples from the NML distribution of the Sherrington-Kirkpatrick model using an MCMC approach. Note that the results of this simulation are supplementary to the paper. <br> <br>
-
 -**LD_rbm.py** generates large deviation samples from the NML distribution of the restricted Boltzmann machine using an MCMC approach. Note that the results of this simulation are supplementary to the paper.
