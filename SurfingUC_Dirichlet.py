@@ -60,15 +60,21 @@ beta = 1.0 # sampling bias
 # Sample 100 Dirichlet NML typical samples
 while iterations < 100:
     attempt = attempt + 1
+    
+    # propose to transfer one observation from k_1 to k_2
     k_1 = np.random.choice(np.where(k_sample>0)[0],1)
     k_2 = np.random.choice(np.arange(S_size),1)
+    
+    # Calculate the change in log-likelihood noting that only the states involved in the observation-transfer
     dk = (dk_term(k_sample[k_1]-1) + dk_term(k_sample[k_2]+1)) - (dk_term(k_sample[k_1]) + dk_term(k_sample[k_2]))
+    
+    # Do the Monte Carlo step
     if np.amin([exp(beta*dk),1.0]) >= float(np.random.rand()):
         k_sample[k_1] = k_sample[k_1] - 1
         k_sample[k_2] = k_sample[k_2] + 1
-        accept += 1
+        accept += 1 # this is to follow the acceptance ratio
     
-    # Equilibrate the Markov chain Monte Carlo at 100*S_size before calculating relevant quantities
+    # Equilibrate the Markov chain Monte Carlo at 5000*S_size before calculating relevant quantities
     if ((attempt >= 5000*S_size) and (np.mod(attempt,50*S_size)==0)):
         HofK, HofS = calculate_HofKS(k_sample)
         DM_sample[iterations] = k_sample
