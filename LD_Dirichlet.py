@@ -37,7 +37,7 @@ def dk_term_ldt(k, ldt_beta):
 # $\rho = M/S_size$ where $S_size$ is the size of the state space and $M$ is the number of samples
 rho = 10
 M = rho*S_size
-S_size = M/rho
+S_size = int(M/rho)
 
 # Fix the large deviations parameter
 ldt_beta = 1.0
@@ -60,12 +60,15 @@ while iterations < 100:
     
     attempt = 0
     
+    # Equilibrate to 2000*S_size before restarting the simulation
     while attempt < 2000*S_size:
         attempt += 1
     
+        # propose to transfer one observation from k_1 to k_2
         k_1 = np.random.choice(np.where(k_sample>0)[0],1)
         k_2 = np.random.choice(np.arange(S_size),1)
     
+        # Calculate the change in log-likelihood (of the tilted distribution) noting that only the states involved in the observation-transfer
         dk = (dk_term(k_sample[k_1]-1, ldt_beta) + dk_term(k_sample[k_2]+1, ldt_beta)) - (dk_term(k_sample[k_1], ldt_beta) + dk_term(k_sample[k_2], ldt_beta))
         if np.amin([exp(beta*dk),1.0]) >= float(np.random.rand()):
             k_sample[k_1] = k_sample[k_1] - 1
